@@ -1,0 +1,202 @@
+%% This is file `StellarexPoster.tex',
+%% it is part of the Stellarex LaTeX bundle
+%% (derived from the IPP bundle by Marei Peischl, LPPL 1.3c)
+%%
+%% Generic poster template showing the box styles, figures and the bibliography.
+%% Compile with: latexmk StellarexPoster   (lualatex + biber, see .latexmkrc)
+\documentclass[
+	fontsize=26pt,% base font size (24-28pt is readable from 1.5-2 m); title and box headings scale with it
+	paperwidth=48in,% passed to geometry
+	paperheight=36in,% passed to geometry
+%	margin=20mm,% width of the navy frame
+%	logoheight=60mm,% height of the Stellarex logo in the title block
+%	footerheight=30mm,% minimum height of the footer area
+]{stellarex-poster}
+
+%language setup
+\usepackage[english]{babel}
+\usepackage{microtype}
+\usepackage[autostyle]{csquotes}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{lipsum}% placeholder text, remove when done
+
+% Figures and tables: use \captionof inside poster boxes (floats are not possible)
+\graphicspath{{}{figures/}{logos/}}
+
+\usepackage[style=numeric-comp]{biblatex}
+\addbibresource{StellarexPoster.bib}
+
+\begin{document}
+
+\title{Poster Title Goes Here, Ideally on a Single Line}
+
+% Authors: \inst{} refers to the institute list, \contact{} adds a corresponding author to the footer
+\author{First Author\inst{1}\contact{first.author@stellarex.com} \and Second Author\inst{1,2} \and Third Author\inst{2}}
+\institute{\inst{1}Stellarex, Inc., Toronto, Canada \and\inst{2}Partner Institution, City, Country}
+
+\footer{Name of the Conference, City, Date}
+% Affiliation logo(s) next to the Stellarex logo, top right (placeholder: PPPL)
+% height defaults to logoheight; change it with \StellarexPosterSetup{affiliationlogoheight=40mm}
+\setAffiliationLogos{pppl-logo}
+% Additional logo(s) below the Stellarex logo in the title block
+% \setHeadlineLogos{partner-logo.pdf}
+% Logos in the footer, e.g. of partners or funding agencies
+\footergraphics{\includegraphics[height=20mm]{example-image}\hspace{1em}}
+% Funding statement, bottom right
+\acknowledgement{This work was supported by Funding Agency, grant number 0000000.}
+
+\begin{tcbposter}[
+	poster={
+		columns=4,% number of equal width columns
+		rows=4,% number of rows
+	}]
+
+%%% Column 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{posterboxenv}[
+	title=Abstract,
+	abstract,% navy title bar
+	]{name=abstract, column=1, row=1}
+	The \texttt{abstract} style has a navy title bar. Use it for the abstract or summary at the top left of the poster.
+
+	\lipsum[1][1-4]
+\end{posterboxenv}
+
+\begin{posterboxenv}[title=Introduction]{name=intro, column=1, between=abstract and bottom}
+	Boxes without a style option use the default style: a grey title bar and a white body.
+	Text can be structured with lists and equations as usual:
+	\begin{itemize}
+		\item First point, with a citation~\cite{placeholder-article}
+		\item Second point, with a reference to Eq.~\eqref{eq:example}
+		\item Third point, citing a book~\cite{placeholder-book}
+	\end{itemize}
+	\begin{equation}
+		\label{eq:example}
+		\nabla \cdot \mathbf{B} = 0, \qquad \mathbf{J} \times \mathbf{B} = \nabla p
+	\end{equation}
+	\lipsum[2][1-3]
+
+	\section{Section heading inside a box}
+	Use \verb+\section+ to add headings inside a box. They are styled like box titles.
+
+	\lipsum[3][1-4]
+
+	\section{Another heading}
+	\lipsum[4][1-4]
+\end{posterboxenv}
+
+%%% Column 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{posterboxenv}[title=Methods]{name=methods, column=2, row=1, rowspan=2}
+	A single figure at full box width, with a numbered caption:
+
+	\medskip
+	\centerline{\includegraphics[width=\linewidth,height=.5\linewidth]{example-image}}
+	\captionof{figure}{A placeholder figure. Replace \texttt{example-image} with your own file, e.g.\ \texttt{figures/my-plot.pdf}.\label{fig:methods}}
+
+	Figures are referenced as usual (Fig.~\ref{fig:methods}). The method follows~\cite{placeholder-proceedings}:
+	\begin{enumerate}
+		\item First step of the method
+		\item Second step of the method
+		\item Third step of the method
+	\end{enumerate}
+	\lipsum[11][1-5]
+\end{posterboxenv}
+
+%%% Column 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{posterboxenv}[title=Results]{name=results, column=3, row=1, rowspan=2}
+	Two figures side by side, each with its own caption:
+
+	\medskip
+	\begin{minipage}[t]{.48\linewidth}
+		\includegraphics[width=\linewidth,height=.75\linewidth]{example-image-a}
+		\captionof{figure}{Left placeholder figure.\label{fig:left}}
+	\end{minipage}\hfill
+	\begin{minipage}[t]{.48\linewidth}
+		\includegraphics[width=\linewidth,height=.75\linewidth]{example-image-b}
+		\captionof{figure}{Right placeholder figure.\label{fig:right}}
+	\end{minipage}
+
+	\bigskip
+	Tables work the same way (Table~\ref{tab:results}):
+
+	\medskip
+	\begin{center}
+		\captionof{table}{A placeholder table.\label{tab:results}}
+		\begin{tabular}{lrr}
+			\toprule
+			Case & Quantity A & Quantity B \\
+			\midrule
+			Baseline & 1.00 & 0.00 \\
+			Variant 1 & 1.25 & 0.10 \\
+			Variant 2 & 1.50 & 0.20 \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+
+	\lipsum[6][1-4]
+\end{posterboxenv}
+
+%%% Columns 2 and 3, bottom rows %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{posterboxenv}[title=Discussion]{name=discussion, column=2, span=2, below=methods}
+	This box spans two columns (\verb+span=2+), which suits wide figures.
+
+	\medskip
+	\begin{minipage}[t]{.6\linewidth}
+		\vspace{0pt}% aligns the tops of the two minipages
+		\includegraphics[width=\linewidth,height=.3\linewidth]{example-image-16x9}
+		\captionof{figure}{A wide placeholder figure.\label{fig:wide}}
+	\end{minipage}\hfill
+	\begin{minipage}[t]{.36\linewidth}
+		\vspace{0pt}
+		\lipsum[14][1-5]
+	\end{minipage}
+\end{posterboxenv}
+
+\begin{posterboxenv}[
+	title=Key result,
+	highlight,% gold callout (default color of the highlight style)
+	]{name=key, column=2, span=2, between=discussion and bottom}
+	\begin{minipage}[c]{.6\linewidth}
+		The \texttt{highlight} style draws attention to the main message. Without an argument it uses Stellarex gold.
+
+		\lipsum[8][1-3]
+	\end{minipage}\hfill
+	\begin{minipage}[c]{.36\linewidth}
+		\includegraphics[width=\linewidth,height=.5\linewidth]{example-image-c}
+		\captionof{figure}{A figure next to text.}
+	\end{minipage}
+\end{posterboxenv}
+
+%%% Column 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{posterboxenv}[
+	title=Conclusions,
+	conclusion,% navy title bar, light navy body
+	]{name=conclusion, column=4, row=1}
+	The \texttt{conclusion} style has a navy title bar and a tinted body.
+	\lipsum[15][1-2]
+	\begin{itemize}
+		\item \lipsum[9][1]
+		\item \lipsum[9][3]
+		\item \lipsum[9][5]
+	\end{itemize}
+\end{posterboxenv}
+
+\begin{posterboxenv}[
+	title=Outlook,
+	highlight=blue,% other colors: navy, blue_light, orange, grey, grey_light, ...
+	]{name=outlook, column=4, below=conclusion}
+	Use \verb+highlight=<color>+ for any palette color.
+	\begin{itemize}
+		\item \lipsum[10][1]
+		\item \lipsum[10][3]
+	\end{itemize}
+\end{posterboxenv}
+
+\begin{posterboxenv}[title=References]{name=references, column=4, between=outlook and bottom}
+	\nocite{*}% lists all entries of the .bib file, remove when done
+	\printbibliography[heading=none]
+\end{posterboxenv}
+
+\end{tcbposter}
+
+\end{document}

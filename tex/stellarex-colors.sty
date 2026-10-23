@@ -1,0 +1,37 @@
+%% This is file `stellarex-colors.sty',
+%% it is part of the Stellarex LaTeX bundle
+%% (derived from the IPP bundle by Marei Peischl, LPPL 1.3c)
+\ProvidesPackage{stellarex-colors}[2026-10-22 v1.0 color definitions for the Stellarex corporate design]
+
+\DeclareOption{rgb}{\PassOptionsToPackage{RGB}{xcolor}}
+\DeclareOption{RGB}{\PassOptionsToPackage{RGB}{xcolor}}
+\DeclareOption{cmyk}{\PassOptionsToPackage{cmyk}{xcolor}}
+\DeclareOption{CMYK}{\PassOptionsToPackage{cmyk}{xcolor}}
+
+\ProcessOptions\relax
+
+\RequirePackage{xcolor}
+
+% Brand colors, taken from the official logo files (EPS for CMYK, SVG for RGB)
+\definecolor{Stellarex_navy}{cmyk/RGB}{1,.91,.37,.48/0,27,71}% #001B47
+\definecolor{Stellarex_gold}{cmyk/RGB}{0,.27,.95,0/254,190,36}% #FEBE24
+
+% Supporting colors
+\definecolor{Stellarex_blue}{cmyk/RGB}{.9,.6,.05,.1/38,84,148}
+\definecolor{Stellarex_blue_light}{cmyk/RGB}{.55,.25,0,0/110,160,215}
+\definecolor{Stellarex_orange}{cmyk/RGB}{0,.6,1,0/239,124,0}
+\definecolor{Stellarex_grey_dark}{cmyk/RGB}{0,0,0,.65/119,119,119}
+\definecolor{Stellarex_grey}{cmyk/RGB}{0,0,0,.45/167,167,168}
+\definecolor{Stellarex_grey_light}{cmyk/RGB}{0,0,0,.09/238,238,238}
+
+% Text color to use on top of each color (e.g. for colored box titles)
+\colorlet{Stellarex_navy_contrast}{white}
+\colorlet{Stellarex_gold_contrast}{Stellarex_navy}
+\colorlet{Stellarex_blue_contrast}{white}
+\colorlet{Stellarex_blue_light_contrast}{Stellarex_navy}
+\colorlet{Stellarex_orange_contrast}{white}
+\colorlet{Stellarex_grey_dark_contrast}{white}
+\colorlet{Stellarex_grey_contrast}{Stellarex_navy}
+\colorlet{Stellarex_grey_light_contrast}{Stellarex_navy}
+
+\endinput

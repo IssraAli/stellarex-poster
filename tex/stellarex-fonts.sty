@@ -1,0 +1,36 @@
+%% This is file `stellarex-fonts.sty',
+%% it is part of the Stellarex LaTeX bundle
+%% (derived from the IPP bundle by Marei Peischl, LPPL 1.3c)
+%%
+%% Body text: Source Sans Pro. Headings: Montserrat.
+%% Both ship with TeX Live and MiKTeX.
+\ProvidesExplPackage{stellarex-fonts}{2026-10-22}{1.0}{font setup for the Stellarex corporate design}
+
+\RequirePackage{anyfontsize}
+\RequirePackage{iftex}
+
+\ifPDFTeX
+	\RequirePackage[T1]{fontenc}
+	\RequirePackage[sfdefault]{sourcesanspro}
+	\newcommand*{\Stellarex@headingfont}{\fontfamily{Montserrat-TLF}\selectfont}
+\else
+	\RequirePackage{fontspec}
+	\setsansfont{SourceSansPro}[
+		Extension = .otf,
+		UprightFont = *-Regular,
+		ItalicFont = *-RegularIt,
+		BoldFont = *-Semibold,
+		BoldItalicFont = *-SemiboldIt,
+	]
+	\newfontfamily\Stellarex@headingfont{Montserrat}[
+		Extension = .otf,
+		UprightFont = *-Regular,
+		ItalicFont = *-Italic,
+		BoldFont = *-SemiBold,
+		BoldItalicFont = *-SemiBoldItalic,
+	]
+\fi
+
+\renewcommand*{\familydefault}{\sfdefault}
+
+\endinput
